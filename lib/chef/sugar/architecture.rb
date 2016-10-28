@@ -25,7 +25,7 @@ class Chef
       # @return [Boolean]
       #
       def _64_bit?(node)
-        %w(amd64 x86_64 ppc64 ppc64le s390x ia64 sparc64 aarch64 arch64 arm64 sun4v sun4u s390x)
+        %w(amd64 x86_64 ppc64 ppc64le s390x ia64 sparc64 aarch64 arch64 arm64 sun4v sun4u s390x mips64 mips64el)
           .include?(node['kernel']['machine']) || ( node['kernel']['bits'] == '64' )
       end
 
@@ -119,6 +119,46 @@ class Chef
         %w(s390x)
           .include?(node['kernel']['machine'])
       end
+
+      #
+      # Determine if the current architecture is MIPS Big Endian
+      #
+      # @return [Boolean]
+      #
+      def mips?(node)
+        %w(mips)
+          .include?(node['kernel']['machine'])
+      end
+
+      #
+      # Determine if the current architecture is MIPS64 Big Endian
+      #
+      # @return [Boolean]
+      #
+      def mips64?(node)
+        %w(mips64)
+          .include?(node['kernel']['machine'])
+      end
+
+      #
+      # Determine if the current architecture is MIPS Little Endian
+      #
+      # @return [Boolean]
+      #
+      def mipsel?(node)
+        %w(mipsel)
+          .include?(node['kernel']['machine'])
+      end
+
+      #
+      # Determine if the current architecture is MIPS64 Little Endian
+      #
+      # @return [Boolean]
+      #
+      def mips64el?(node)
+        %w(mips64el)
+          .include?(node['kernel']['machine'])
+      end
     end
 
     module DSL
@@ -151,6 +191,18 @@ class Chef
 
       # @see Chef::Sugar::Architecture#s390x?
       def s390x?; Chef::Sugar::Architecture.s390x?(node); end
+
+      # @see Chef::Sugar::Architecture#mips?
+      def mips?; Chef::Sugar::Architecture.mips?(node); end
+
+      # @see Chef::Sugar::Architecture#mips64?
+      def mips64?; Chef::Sugar::Architecture.mips64?(node); end
+
+      # @see Chef::Sugar::Architecture#mipsel?
+      def mipsel?; Chef::Sugar::Architecture.mipsel?(node); end
+
+      # @see Chef::Sugar::Architecture#mips64el?
+      def mips64el?; Chef::Sugar::Architecture.mips64el?(node); end
 
     end
   end

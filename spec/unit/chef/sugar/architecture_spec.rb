@@ -118,4 +118,32 @@ describe Chef::Sugar::Architecture do
       expect(described_class.s390x?(node)).to be true
     end
   end
+
+  describe '#mips?' do
+    it 'returns true when the system is mips' do
+      node = { 'kernel' => { 'machine' => 'mips' } }
+      expect(described_class.mips?(node)).to be true
+    end
+  end
+
+  describe '#mips64?' do
+    it 'returns true when the system is mips64' do
+      node = { 'kernel' => { 'machine' => 'mips64' } }
+      expect(described_class.mips64?(node)).to be true
+    end
+  end
+
+  describe '#mipsel?' do
+    it 'returns true when the system is mipsel' do
+      node = { 'kernel' => { 'machine' => 'mipsel' } }
+      expect(described_class.mipsel?(node)).to be true
+    end
+  end
+
+  describe '#mips64el?' do
+    it 'returns true when the system is mips64el' do
+      node = { 'kernel' => { 'machine' => 'mips64el' } }
+      expect(described_class.mips64el?(node)).to be true
+    end
+  end
 end
